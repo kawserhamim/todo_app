@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+  
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+  </form>
+
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Author</th>
+        <th scope="col">Created Date</th>
+        <th scope="col">Todo</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+        <tr>
+            <th scope="row">{{ task.id }}</th>
+            <td>{{ task.user.username }}</td>
+            <td>{{ task.created_date }}</td>
+            <td>{{ task.task }}</td>
+            <td>
+            <a href="{% url 'update_task_view' task.id %}" class="btn btn-danger btn-sm">Edit</a>
+            </td>
+            <td>
+            <a href="{% url 'delete_task_view' task.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+      {% empty %}
+      <tr>
+        <td colspan="4" class="text-center">No tasks available</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+{% endblock %}
