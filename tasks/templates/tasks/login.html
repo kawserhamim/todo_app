@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+
 {% block content %}
   <div class="container mt-4">
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-5">
-        <div class="card shadow-sm" style="background-color: #ffffff; border: 1px solid #e0e0e0;">
+        <div class="card shadow-sm">
           <div class="card-body">
-            <h2 class="text-center mb-4" style="color: #000000;">Sign In</h2>
-            <form method="post" action="{% url 'firstpage' %}">
+            <h2 class="text-center mb-4">Sign In</h2>
+            <form method="post">
               {% csrf_token %}
               {{ form|crispy }}
               <div class="d-grid">
-                <button type="submit" class="btn btn-primary" style="background-color: #000000; border-color: #000000;">Sign Up</button>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
               </div>
             </form>
           </div>

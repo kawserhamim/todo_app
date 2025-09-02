@@ -14,7 +14,7 @@ def signup_view(request):
         form = forms.SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('firstpage')
+            return redirect('login_view')
     else:
         form = forms.SignUpForm()
 
@@ -23,12 +23,15 @@ def signup_view(request):
 
 # User login
 def login_view(request):
+    
     if request.method == 'POST':
         form = forms.LoginForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
+            xx = user.username
+            print(xx)
             if user is not None:
                 login(request, user)
                 return redirect('firstpage')
