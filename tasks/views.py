@@ -105,7 +105,7 @@ def delete_task_view(request, pk):
 def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
-    return redirect('firstpage')
+    return redirect('login_view')
 
 def alert(request):
     return render(request, 'tasks/alert.html')
