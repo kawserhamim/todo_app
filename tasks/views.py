@@ -14,7 +14,7 @@ def signup_view(request):
         form = forms.SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('firtpage')
+            return redirect('firstpage')
     else:
         form = forms.SignUpForm()
 

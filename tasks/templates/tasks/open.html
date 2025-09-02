@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
-
-
 {% block content %}
-  <div class="container mt-4">
-    
-    <form method="post">
-      {% csrf_token %}
-      {{ form|crispy }}
+<div class="container mt-4">
+  <div class="card shadow-lg rounded-4 border-0 overflow-hidden" style="background-color: #f5f5f5;">
+    <div class="card-body p-5">
+      <form method="post" class="mb-4">
+        {% csrf_token %}
+        <div class="bg-white rounded-3 p-4 shadow-sm" style="border: 1px solid #e0e0e0;">
+          {{ form|crispy }}
+          <h1 class="text-center">Author: Kawser Hamim</h1>
+        </div>
+      </form>
       
-    </form>
-    <h1 class="text-center">welcome {{ user.username}} , to the todo-app</h1>
-    <h1 class="text-center">now you can run this app to do you daily task  </h1>
+      <div class="text-center">
+        <h1 class="display-5 fw-bold mb-3" style="color: #000000;">welcome {{ user.username}} , to the todo-app</h1>
+        <h1 style="color: #555555;">now you can run this app to do you daily task</h1>
+      </div>
+    </div>
   </div>
+</div>
 {% endblock %}
