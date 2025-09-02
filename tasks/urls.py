@@ -9,6 +9,7 @@ urlpatterns = [
     path('deletetask/<int:pk>/', views.delete_task_view, name='delete_task_view'),
     path('updatetask/<int:pk>/', views.edit_task_view, name='update_task_view'),
     path('firstpage/', views.firstpage, name='firstpage'),
-    
+    path('logout/', views.logout_view, name='logout'),
+    path('alert/', views.alert, name='alert'),  # Home page
     
 ]

@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from . import models
 from . import forms
-
-
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -14,7 +14,7 @@ def signup_view(request):
         form = forms.SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("User created successfully")
+            return redirect('firtpage')
     else:
         form = forms.SignUpForm()
 
@@ -50,12 +50,14 @@ def firstpage(request):
 
 
 # Task list (only for logged in user)
+@login_required
 def my_todo_view(request):
     tasks = models.Task.objects.filter(user=request.user)
     return render(request, 'tasks/list.html', {'tasks': tasks})
 
 
 # Create task
+@login_required
 def create_task_view(request):
     if request.method == 'POST':
         form = forms.TaskForm(request.POST)
@@ -69,22 +71,23 @@ def create_task_view(request):
 
     return render(request, 'tasks/create.html', {'form': form})
 
+from .models import Task
 
 # Edit task
+@login_required
 def edit_task_view(request, pk):
+    # Get the task for this user
     task = get_object_or_404(models.Task, pk=pk, user=request.user)
 
     if request.method == 'POST':
         form = forms.TaskForm(request.POST, instance=task)
         if form.is_valid():
-            updated_task = form.save(commit=False)
-            updated_task.user = request.user   # 🔑 ensure correct user
-            updated_task.save()
+            form.save()
             return redirect('my_todo_view')
     else:
         form = forms.TaskForm(instance=task)
-
-    return render(request, 'tasks/create.html', {'form': form})
+        print(pk)
+    return render(request, 'tasks/create.html', {'form': form}) 
 
 
 # Delete task
@@ -96,3 +99,10 @@ def delete_task_view(request, pk):
     task.delete()
     return redirect('my_todo_view')
 
+def logout_view(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect('firstpage')
+
+def alert(request):
+    return render(request, 'tasks/alert.html')
