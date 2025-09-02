@@ -8,13 +8,13 @@
         {% csrf_token %}
         <div class="bg-white rounded-3 p-4 shadow-sm" style="border: 1px solid #e0e0e0;">
           {{ form|crispy }}
-          <h1>Author : Kawser Hamim</h1>
+          <h1 class="text-center">Author : Kawser Hamim</h1>
         </div>
       </form>
       
       <div class="text-center">
         <h1 class="display-5 fw-bold mb-3" style="color: #000000;">welcome {{ user.username}} </h1>
-        <h1 style="color: #555555;">now you can run this app to do you daily task</h1>
+        <h1 style="color: #555555;">Now you can run this app to do your tasks</h1>
       </div>
     </div>
   </div>
